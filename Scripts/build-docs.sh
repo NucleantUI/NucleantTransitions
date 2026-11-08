@@ -73,6 +73,9 @@ touch "$OUTPUT/.nojekyll"
 if [ "${SKIP_GALLERY:-0}" != "1" ]; then
     echo "Building the gallery for WebAssembly…"
     SWIFT="$HOME/Library/Developer/Toolchains/swift-${SWIFT_TOOLCHAIN:-6.3.3}-RELEASE.xctoolchain/usr/bin/swift"
+    # The shaders, compiled here for the host: the wasm build cannot build
+    # PyShader's plugin, and takes them as resources instead (Package.swift).
+    swift package --package-path "$ROOT" --allow-writing-to-package-directory pyshader-compile
     WASM_SCRATCH="$ROOT/.build/wasm"
     # The checkouts the wasm build uses, so the build script and the page
     # runtime come from the NucleantApplication this package resolves.
