@@ -1,0 +1,35 @@
+# The transitions' shaders, compiled to SPIR-V by PyShader's build plugin as
+# the library builds. Each is an effect over the view arriving or leaving:
+# it reads the view with layer(uv), stored top-down as NucleantUI hands it,
+# and takes `progress` first — 0 with nothing shown, 1 with all of it — then
+# its own arguments, in the order the Swift side passes them.
+
+[Ripple]
+source = "Shaders/Ripple.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "center:float2"]
+
+[Dissolve]
+source = "Shaders/Dissolve.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "edge_color:float4"]
+
+[Pixelate]
+source = "Shaders/Pixelate.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "block:float"]
+
+[Swirl]
+source = "Shaders/Swirl.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "turns:float"]
+
+[Glitch]
+source = "Shaders/Glitch.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "strength:float"]

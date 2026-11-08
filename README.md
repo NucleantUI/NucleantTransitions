@@ -1,0 +1,55 @@
+# NucleantTransitions
+
+Transitions for [NucleantUI](https://github.com/NucleantUI/NucleantUI) drawn
+by shaders. Each one runs a [PyShader](https://github.com/NucleantUI/PyShader)
+effect over the view as it arrives or leaves. The effect reads the view's
+pixels with `layer(uv)`, and the change that inserts or removes the view
+animates the effect's progress.
+
+| Transition | What it does |
+|---|---|
+| `.ripple`, `.ripple(from:)` | A circle grows from a point until it covers the view, rippling just behind its rim. |
+| `.dissolve`, `.dissolve(edgeColor:)` | The view forms out of noise, the edge of what has formed glowing. |
+| `.pixelate`, `.pixelate(blockSize:)` | Coarse blocks sharpen into the view's pixels. |
+| `.swirl`, `.swirl(turns:)` | The view unwinds out of its centre. |
+| `.glitch`, `.glitch(strength:)` | Torn slices jump sideways, colour channels pulled apart, and settle. |
+
+```swift
+import NucleantTransitions
+import NucleantUI
+
+Card(slide)
+    .transition(.asymmetric(
+        insertion: .ripple(from: tapped),
+        removal: .opacity
+    ))
+
+withAnimation(.easeInOut(duration: 1)) { index += 1 }
+```
+
+Each one is also a `Transition` type of its own (`RippleTransition`,
+`DissolveTransition`, …), so `.transition(.dissolve)` takes no erasure and
+`.combined(with:)` and `.animation(_:)` work as with any transition.
+
+## Writing your own
+
+A shader transition is an `Animatable` `ViewModifier` with its progress as
+`animatableData`. Its `body` runs `.shader(_:arguments:)` with that progress,
+and a `Transition` sets the progress from the phase. The shaders here, in
+`Shaders/`, take `progress` first: 0 with nothing of the view shown, 1 with
+all of it. At 1 the shader is switched off, so a view that is simply shown
+draws as it would without the transition.
+
+## Gallery
+
+```sh
+swift run TransitionGallery
+```
+
+A slideshow of cards, each arriving with the transition picked in the
+sidebar. Click a card to bring on the next one from where you clicked.
+
+## Requirements
+
+The shaders are compiled to SPIR-V by PyShader's build plugin as the library
+builds, as `pyshader.toml` lists them.
