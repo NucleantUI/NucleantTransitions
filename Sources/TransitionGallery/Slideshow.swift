@@ -12,38 +12,6 @@ import NucleantTransitions
 import NucleantUI
 import Observation
 
-/// One of the package's transitions.
-enum TransitionKind: CaseIterable, Identifiable {
-    case ripple, dissolve, pixelate, swirl, glitch
-
-    var id: Self { self }
-
-    var name: String {
-        switch self {
-        case .ripple:   return "Ripple"
-        case .dissolve: return "Dissolve"
-        case .pixelate: return "Pixelate"
-        case .swirl:    return "Swirl"
-        case .glitch:   return "Glitch"
-        }
-    }
-
-    var summary: String {
-        switch self {
-        case .ripple:
-            return "A circle grows from a point until it covers the card, rippling just behind its rim. Click the card: it grows from where you clicked."
-        case .dissolve:
-            return "The card forms out of noise, the edge of what has formed glowing."
-        case .pixelate:
-            return "Coarse blocks sharpen into the card's pixels."
-        case .swirl:
-            return "The card unwinds out of its centre."
-        case .glitch:
-            return "Torn slices jump sideways, their colour channels pulled apart, and settle."
-        }
-    }
-}
-
 /// A card in the deck.
 struct Slide: Identifiable {
     let id: Int
@@ -72,7 +40,7 @@ final class Slideshow {
     private(set) var origin = UnitPoint.center
 
     /// How the next card arrives.
-    var kind = TransitionKind.ripple
+    var kind = TransitionKind.all[0]
 
     /// Seconds a card takes to arrive.
     var duration = 1.0
@@ -85,32 +53,17 @@ final class Slideshow {
 
     /// How the card showing came in, and how it will go.
     var transition: AnyTransition {
-        let insertion: AnyTransition
-        switch kind {
-        case .ripple:   insertion = .ripple(from: origin)
-        case .dissolve: insertion = .dissolve
-        case .pixelate: insertion = .pixelate
-        case .swirl:    insertion = .swirl
-        case .glitch:   insertion = .glitch
-        }
+        let insertion = kind.make(origin)
         return fadesOut ? .asymmetric(insertion: insertion, removal: .opacity) : insertion
     }
 
     /// The code that makes what the stage shows.
     var code: String {
-        let insertion: String
-        switch kind {
-        case .ripple:
-            insertion = ".ripple(from: tap)"
-        case .dissolve: insertion = ".dissolve"
-        case .pixelate: insertion = ".pixelate"
-        case .swirl:    insertion = ".swirl"
-        case .glitch:   insertion = ".glitch"
-        }
+        let insertion = kind.code
         let transition = fadesOut
             ? ".asymmetric(\n    insertion: \(insertion),\n    removal: .opacity\n  )"
             : insertion
-        let tap = kind == .ripple
+        let tap = kind.usesPoint
             ? String(format: "let tap = UnitPoint(\n  x: %.2f, y: %.2f\n)\n\n", origin.x, origin.y)
             : ""
         let code = tap + """
@@ -123,8 +76,12 @@ final class Slideshow {
           index += 1
         }
         """
-        // Spaces that do not break, so a wrapped line keeps its indent.
-        return code.replacingOccurrences(of: " ", with: "\u{00A0}")
+        // Indents in spaces that do not break, so a line keeps its indent
+        // when the text is laid out; a line too long wraps at its others.
+        return code.split(separator: "\n", omittingEmptySubsequences: false).map { line in
+            let indent = line.prefix { $0 == " " }
+            return String(repeating: "\u{00A0}", count: indent.count) + line.dropFirst(indent.count)
+        }.joined(separator: "\n")
     }
 
     /// Bring on the next card, its ripple growing from `origin`.

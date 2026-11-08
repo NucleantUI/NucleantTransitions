@@ -13,18 +13,13 @@ struct ShaderModuleTests {
 
     /// Every shader the transitions name was compiled by the build plugin
     /// and is in the library's bundle as SPIR-V, with a `main` to run.
-    @Test(arguments: ["Ripple", "Dissolve", "Pixelate", "Swirl", "Glitch"])
+    @Test(arguments: [
+        "Ripple", "Dissolve", "Pixelate", "Swirl", "Glitch", "Wipe", "ClockWipe", "Iris",
+        "Diamond", "Blinds", "Checkerboard", "Tiles", "Shatter", "Wave", "ZoomBlur",
+        "MotionBlur", "Chromatic", "Kaleidoscope", "Doors", "Halftone", "Melt", "Stripes",
+        "Dots", "CRT", "Flash", "Smoke", "Ink", "Blur", "Develop",
+    ])
     func compiledIntoTheBundle(name: String) throws {
-        let shader: TransitionShader = switch name {
-        case "Ripple":   .ripple
-        case "Dissolve": .dissolve
-        case "Pixelate": .pixelate
-        case "Swirl":    .swirl
-        default:         .glitch
-        }
-        #expect(shader.name == name)
-        #expect(shader.function.language == .spirv)
-
         let url = try #require(Bundle.module(for: name))
         let data = try Data(contentsOf: url)
         let words = data.withUnsafeBytes { Array($0.bindMemory(to: UInt32.self)) }
@@ -62,5 +57,30 @@ struct PhaseTests {
         #expect(GlitchTransition.properties.hasMotion)
         #expect(!DissolveTransition.properties.hasMotion)
         #expect(!PixelateTransition.properties.hasMotion)
+    }
+}
+
+@MainActor
+struct LoadingTests {
+
+    /// Each transition's shader loads under the name its section has in
+    /// `pyshader.toml` — a missing one stops the app.
+    @Test func shadersLoadByName() {
+        let shaders: [(TransitionShader, String)] = [
+            (.ripple, "Ripple"), (.wipe, "Wipe"), (.clockWipe, "ClockWipe"), (.motionBlur, "MotionBlur"),
+            (.crt, "CRT"), (.develop, "Develop"), (.shatter, "Shatter"), (.dots, "Dots"),
+        ]
+        for (shader, name) in shaders {
+            #expect(shader.name == name)
+            #expect(shader.function.language == .spirv)
+        }
+    }
+
+    /// Something coming in through an edge travels away from it.
+    @Test func edgesPointInward() {
+        #expect(Edge.leading.travel == Float2(1, 0))
+        #expect(Edge.top.travel == Float2(0, 1))
+        #expect(Edge.trailing.inward == .degrees(180))
+        #expect(Edge.bottom.inward == .degrees(-90))
     }
 }

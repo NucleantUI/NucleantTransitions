@@ -13,6 +13,30 @@ animates the effect's progress.
 | `.pixelate`, `.pixelate(blockSize:)` | Coarse blocks sharpen into the view's pixels. |
 | `.swirl`, `.swirl(turns:)` | The view unwinds out of its centre. |
 | `.glitch`, `.glitch(strength:)` | Torn slices jump sideways, colour channels pulled apart, and settle. |
+| `.wipe(angle:feather:)`, `.wipe(from:)` | A soft edge sweeps across. |
+| `.clockWipe(startAngle:)` | A hand sweeps round the centre. |
+| `.iris(from:)` | A clean circle opens from a point. |
+| `.diamond(from:)` | A diamond opens from a point. |
+| `.ink(from:)` | Ink soaks outward from a point, its edge ragged. |
+| `.dots(dotSize:from:)` | A grid of dots swells outward from a point until they merge. |
+| `.blinds(count:axis:)` | Slats open together. |
+| `.checkerboard(cells:)` | Squares grow out of a checkerboard, one colour then the other. |
+| `.tiles(cells:)` | Tiles fade in one by one, in no order. |
+| `.doors(axis:)` | Two halves slide in from either side and meet. |
+| `.stripes(count:)` | Strips slide in from alternate sides. |
+| `.melt` | The view drips down into place, column by column. |
+| `.motionBlur(from:)` | The view slides in from an edge, smeared as it moves. |
+| `.zoomBlur(from:)` | The view rushes in from far off, streaked towards a point. |
+| `.shatter(cells:)` | Shards fly in, turning, and settle each in its own time. |
+| `.kaleidoscope(segments:)` | A turning kaleidoscope opens out into the view. |
+| `.wave(amplitude:)` | The view rolls in on waves that flatten. |
+| `.smoke` | The view gathers out of drifting smoke. |
+| `.halftone(dotSize:)` | Halftone dots swell until they merge into the view. |
+| `.blur(radius:)` | The view comes into focus. |
+| `.chromatic(strength:)` | Colour channels fly apart and come back together. |
+| `.crt` | An old television switching on. |
+| `.flash(color:)` | A flash of colour fades to show the view. |
+| `.develop` | The view develops like a photograph. |
 
 ```swift
 import NucleantTransitions

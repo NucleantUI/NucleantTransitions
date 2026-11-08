@@ -33,3 +33,147 @@ source = "Shaders/Glitch.py"
 target = "compute"
 content-top-down = true
 arguments = ["progress:float", "strength:float"]
+
+[Wipe]
+source = "Shaders/Wipe.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "angle:float", "feather:float"]
+
+[ClockWipe]
+source = "Shaders/ClockWipe.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "start:float"]
+
+[Iris]
+source = "Shaders/Iris.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "center:float2"]
+
+[Diamond]
+source = "Shaders/Diamond.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "center:float2"]
+
+[Blinds]
+source = "Shaders/Blinds.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "count:float", "vertical:float"]
+
+[Checkerboard]
+source = "Shaders/Checkerboard.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "cells:float"]
+
+[Tiles]
+source = "Shaders/Tiles.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "cells:float"]
+
+[Shatter]
+source = "Shaders/Shatter.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "cells:float"]
+
+[Wave]
+source = "Shaders/Wave.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "amplitude:float"]
+
+[ZoomBlur]
+source = "Shaders/ZoomBlur.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "center:float2"]
+
+[MotionBlur]
+source = "Shaders/MotionBlur.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "direction:float2"]
+
+[Chromatic]
+source = "Shaders/Chromatic.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "strength:float"]
+
+[Kaleidoscope]
+source = "Shaders/Kaleidoscope.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "segments:float"]
+
+[Doors]
+source = "Shaders/Doors.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "vertical:float"]
+
+[Halftone]
+source = "Shaders/Halftone.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "size:float"]
+
+[Melt]
+source = "Shaders/Melt.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float"]
+
+[Stripes]
+source = "Shaders/Stripes.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "count:float"]
+
+[Dots]
+source = "Shaders/Dots.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "size:float", "center:float2"]
+
+[CRT]
+source = "Shaders/CRT.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float"]
+
+[Flash]
+source = "Shaders/Flash.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "color:float4"]
+
+[Smoke]
+source = "Shaders/Smoke.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float"]
+
+[Ink]
+source = "Shaders/Ink.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "center:float2"]
+
+[Blur]
+source = "Shaders/Blur.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float", "radius:float"]
+
+[Develop]
+source = "Shaders/Develop.py"
+target = "compute"
+content-top-down = true
+arguments = ["progress:float"]

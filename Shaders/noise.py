@@ -32,3 +32,25 @@ def fbm(p: float2) -> float:
         q *= 2.0
         amplitude *= 0.5
     return total / 0.9375
+
+
+def hash22(p: float2) -> float2:
+    """Two values in 0...1 for each point, scattered."""
+    return float2(hash21(p), hash21(p + float2(17.13, 3.71)))
+
+
+def voronoi_seed(p: float2) -> float2:
+    """The seed of the cell `p` falls in: one random point per unit square,
+    the nearest of the nine around `p` winning."""
+    cell = floor(p)
+    best = float2(0.0)
+    nearest = 100.0
+    for j in range(-1, 2):
+        for i in range(-1, 2):
+            g = cell + float2(float(i), float(j))
+            seed = g + hash22(g)
+            d = distance(seed, p)
+            if d < nearest:
+                nearest = d
+                best = seed
+    return best

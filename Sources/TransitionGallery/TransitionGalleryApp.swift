@@ -24,7 +24,7 @@ struct GalleryWindow {
     var body: some View {
         HStack(spacing: 0) {
             Sidebar(slideshow: slideshow)
-                .frame(width: 320)
+                .frame(width: 340)
                 .frame(maxHeight: .infinity)
                 .background(Theme.sidebar)
             Divider()
