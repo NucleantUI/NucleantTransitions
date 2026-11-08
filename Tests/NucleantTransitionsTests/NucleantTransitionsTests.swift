@@ -84,3 +84,18 @@ struct LoadingTests {
         #expect(Edge.bottom.inward == .degrees(-90))
     }
 }
+
+@MainActor
+struct DocumentationSpellingTests {
+
+    /// What the articles show compiles, and makes what they say.
+    @Test func articleSpellings() {
+        let _: AnyTransition = .asymmetric(insertion: .ripple(from: .center), removal: .opacity)
+        let _ = Text("").transition(.glitch.combined(with: .scale))
+        let _ = Text("").transition(.crt.animation(.easeOut(duration: 1.2)))
+        let _ = Text("").transition(.dissolve(edgeColor: .cyan))
+        #expect(BlindsTransition.blinds(count: 6, axis: .vertical).axis == .vertical)
+        #expect(MotionBlurTransition.motionBlur(from: .trailing).edge == .trailing)
+        #expect(WipeTransition.wipe(from: .top).angle == .degrees(90))
+    }
+}

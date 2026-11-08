@@ -12,6 +12,9 @@ import NucleantUI
 @View
 struct Stage {
     let slideshow: Slideshow
+    /// The stage has the keys from the start, so the arrows step through
+    /// the deck.
+    @FocusState private var hasKeys: Bool
 
     var body: some View {
         let slideshow = self.slideshow
@@ -41,6 +44,9 @@ struct Stage {
             }
         }
         .padding(32)
+        .focusable()
+        .focused($hasKeys)
+        .onAppear { hasKeys = true }
         .onKeyPress(.rightArrow) {
             slideshow.next()
             return .handled

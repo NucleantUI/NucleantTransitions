@@ -6,6 +6,9 @@ effect over the view as it arrives or leaves. The effect reads the view's
 pixels with `layer(uv)`, and the change that inserts or removes the view
 animates the effect's progress.
 
+Documentation, and the gallery running in your browser:
+https://nucleantui.github.io/NucleantTransitions/
+
 | Transition | What it does |
 |---|---|
 | `.ripple`, `.ripple(from:)` | A circle grows from a point until it covers the view, rippling just behind its rim. |
