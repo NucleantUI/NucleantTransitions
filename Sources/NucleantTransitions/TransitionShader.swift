@@ -9,9 +9,10 @@
 import Foundation
 import NucleantUI
 
-/// One of the package's compiled shaders.
+/// One of the package's compiled shaders — NucleantNaviTransitions plays them
+/// over whole screens.
 @MainActor
-final class TransitionShader {
+package final class TransitionShader {
 
     /// The `Shaders/<name>.py` it was compiled from, and the section of
     /// `pyshader.toml` that lists it.
@@ -20,7 +21,7 @@ final class TransitionShader {
     /// The module, ready for `.shader(_:arguments:)`. None of them reads
     /// the clock or the pointer: each draws again only when its progress
     /// moves.
-    let function: ShaderFunction
+    package let function: ShaderFunction
 
     private init(named name: String) {
         guard let url = Self.bundle.url(forResource: name, withExtension: "spv"),
@@ -36,33 +37,33 @@ final class TransitionShader {
     /// The library's resources, where the build plugin put the modules.
     nonisolated static var bundle: Bundle { .module }
 
-    static let ripple = TransitionShader(named: "Ripple")
-    static let dissolve = TransitionShader(named: "Dissolve")
-    static let pixelate = TransitionShader(named: "Pixelate")
-    static let swirl = TransitionShader(named: "Swirl")
-    static let glitch = TransitionShader(named: "Glitch")
-    static let wipe = TransitionShader(named: "Wipe")
-    static let clockWipe = TransitionShader(named: "ClockWipe")
-    static let iris = TransitionShader(named: "Iris")
-    static let diamond = TransitionShader(named: "Diamond")
-    static let blinds = TransitionShader(named: "Blinds")
-    static let checkerboard = TransitionShader(named: "Checkerboard")
-    static let tiles = TransitionShader(named: "Tiles")
-    static let shatter = TransitionShader(named: "Shatter")
-    static let wave = TransitionShader(named: "Wave")
-    static let zoomBlur = TransitionShader(named: "ZoomBlur")
-    static let motionBlur = TransitionShader(named: "MotionBlur")
-    static let chromatic = TransitionShader(named: "Chromatic")
-    static let kaleidoscope = TransitionShader(named: "Kaleidoscope")
-    static let doors = TransitionShader(named: "Doors")
-    static let halftone = TransitionShader(named: "Halftone")
-    static let melt = TransitionShader(named: "Melt")
-    static let stripes = TransitionShader(named: "Stripes")
-    static let dots = TransitionShader(named: "Dots")
-    static let crt = TransitionShader(named: "CRT")
-    static let flash = TransitionShader(named: "Flash")
-    static let smoke = TransitionShader(named: "Smoke")
-    static let ink = TransitionShader(named: "Ink")
-    static let blur = TransitionShader(named: "Blur")
-    static let develop = TransitionShader(named: "Develop")
+    package static let ripple = TransitionShader(named: "Ripple")
+    package static let dissolve = TransitionShader(named: "Dissolve")
+    package static let pixelate = TransitionShader(named: "Pixelate")
+    package static let swirl = TransitionShader(named: "Swirl")
+    package static let glitch = TransitionShader(named: "Glitch")
+    package static let wipe = TransitionShader(named: "Wipe")
+    package static let clockWipe = TransitionShader(named: "ClockWipe")
+    package static let iris = TransitionShader(named: "Iris")
+    package static let diamond = TransitionShader(named: "Diamond")
+    package static let blinds = TransitionShader(named: "Blinds")
+    package static let checkerboard = TransitionShader(named: "Checkerboard")
+    package static let tiles = TransitionShader(named: "Tiles")
+    package static let shatter = TransitionShader(named: "Shatter")
+    package static let wave = TransitionShader(named: "Wave")
+    package static let zoomBlur = TransitionShader(named: "ZoomBlur")
+    package static let motionBlur = TransitionShader(named: "MotionBlur")
+    package static let chromatic = TransitionShader(named: "Chromatic")
+    package static let kaleidoscope = TransitionShader(named: "Kaleidoscope")
+    package static let doors = TransitionShader(named: "Doors")
+    package static let halftone = TransitionShader(named: "Halftone")
+    package static let melt = TransitionShader(named: "Melt")
+    package static let stripes = TransitionShader(named: "Stripes")
+    package static let dots = TransitionShader(named: "Dots")
+    package static let crt = TransitionShader(named: "CRT")
+    package static let flash = TransitionShader(named: "Flash")
+    package static let smoke = TransitionShader(named: "Smoke")
+    package static let ink = TransitionShader(named: "Ink")
+    package static let blur = TransitionShader(named: "Blur")
+    package static let develop = TransitionShader(named: "Develop")
 }

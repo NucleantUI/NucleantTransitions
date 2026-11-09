@@ -47,6 +47,27 @@ The animation that inserts or removes the view drives the shader, frame by
 frame. Once the view is fully shown the shader is switched off, so a view
 that has arrived costs nothing and draws as it would without one.
 
+### Navigation transitions
+
+The `NucleantNaviTransitions` library plays the same shaders as a
+`NavigationStack`'s transitions. The pushed screen arrives through one, over
+the screen below, and leaves through it backwards when popped:
+
+```swift
+import NucleantNaviTransitions
+
+.navigationDestination(for: Photo.self) { photo in
+    PhotoDetail(photo)
+        .navigationTransition(.dissolve)
+}
+```
+
+Every transition here has a navigation version with the same name and
+arguments, plus a `timing` (a smooth 0.6 s by default):
+`.iris(center: .topLeading, timing: .smooth(duration: 0.9))`. Each is a
+NucleantUI `ShaderNavigationTransition`, and you can make your own with
+`.navigationTransition(.shader(_:arguments:timing:))`.
+
 The fastest way to see them is the Transition Gallery, which runs in your
 browser: <doc:TransitionGallery>.
 

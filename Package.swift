@@ -30,6 +30,11 @@ let package = Package(
             name: "NucleantTransitions",
             targets: ["NucleantTransitions"]
         ),
+        // The same shaders as a NavigationStack's transitions.
+        .library(
+            name: "NucleantNaviTransitions",
+            targets: ["NucleantNaviTransitions"]
+        ),
     ],
     dependencies: [
         .package(url: "https://github.com/NucleantUI/NucleantUI.git", .upToNextMinor(from: "0.2.0")),
@@ -46,6 +51,22 @@ let package = Package(
             resources: isWasm ? [.process("Compiled")] : [],
             plugins: isWasm ? [] : [.plugin(name: "PyShaderBuildPlugin", package: "PyShader")]
         ),
+        .target(
+            name: "NucleantNaviTransitions",
+            dependencies: [
+                "NucleantTransitions",
+                .product(name: "NucleantUI", package: "NucleantUI")
+            ]
+        ),
+        // Its showcase app: a stack whose every screen arrives through the
+        // transition it is named for. `swift run NaviTransitionGallery`.
+        .executableTarget(
+            name: "NaviTransitionGallery",
+            dependencies: [
+                "NucleantNaviTransitions",
+                .product(name: "NucleantUI", package: "NucleantUI")
+            ]
+        ),
         // The showcase app: a deck of cards, each arriving with the
         // transition picked in the sidebar. `swift run TransitionGallery`.
         .executableTarget(
@@ -59,6 +80,7 @@ let package = Package(
             name: "NucleantTransitionsTests",
             dependencies: [
                 "NucleantTransitions",
+                "NucleantNaviTransitions",
                 .product(name: "NucleantUI", package: "NucleantUI")
             ]
         ),

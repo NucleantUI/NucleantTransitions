@@ -1,5 +1,5 @@
 {
-  "originHash" : "0f14b7bea103c819d30c4cb50f89c053ed2753ae048a86d6a647c72f6f03d765",
+  "originHash" : "73a602f70c7ffb957348e770c095199f9c9e9363fc48f3ff5a8a1fcc7766e008",
   "pins" : [
     {
       "identity" : "nucleantapplication",
@@ -42,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/NucleantUI/NucleantUI.git",
       "state" : {
-        "branch" : "master",
-        "revision" : "f4df3e5d6b277919e4634caa4d317afbe4c12a94"
+        "revision" : "4bbee6cbe3d3f882bfcb472f5fd201eeb764d898",
+        "version" : "0.2.0"
       }
     },
     {

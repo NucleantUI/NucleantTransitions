@@ -58,6 +58,27 @@ Each one is also a `Transition` type of its own (`RippleTransition`,
 `DissolveTransition`, …), so `.transition(.dissolve)` takes no erasure and
 `.combined(with:)` and `.animation(_:)` work as with any transition.
 
+## Navigation transitions
+
+The `NucleantNaviTransitions` library plays the same shaders as a
+`NavigationStack`'s transitions. The pushed screen arrives through one, over
+the screen below, and leaves through it backwards when popped:
+
+```swift
+import NucleantNaviTransitions
+
+.navigationDestination(for: Photo.self) { photo in
+    PhotoDetail(photo)
+        .navigationTransition(.dissolve)
+}
+```
+
+Every transition here has a navigation version with the same name and
+arguments, plus a `timing` (a smooth 0.6 s by default):
+`.iris(center: .topLeading, timing: .smooth(duration: 0.9))`. Each is a
+NucleantUI `ShaderNavigationTransition`, and you can make your own with
+`.navigationTransition(.shader(_:arguments:timing:))`.
+
 ## Writing your own
 
 A shader transition is an `Animatable` `ViewModifier` with its progress as
@@ -75,6 +96,14 @@ swift run TransitionGallery
 
 A slideshow of cards, each arriving with the transition picked in the
 sidebar. Click a card to bring on the next one from where you clicked.
+
+```sh
+swift run NaviTransitionGallery
+```
+
+A navigation stack where every screen arrives through the transition it is
+named for. Pick one from the grid, go on to the next from each screen, and
+go back to see it played in reverse.
 
 ## Requirements
 
