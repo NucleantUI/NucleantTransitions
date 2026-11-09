@@ -32,7 +32,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/NucleantUI/NucleantUI.git", branch: "master"),
+        .package(url: "https://github.com/NucleantUI/NucleantUI.git", .upToNextMinor(from: "0.2.0")),
     ] + (isWasm ? [] : [
         .package(url: "https://github.com/NucleantUI/PyShader.git", .upToNextMinor(from: "0.0.6")),
     ]),
