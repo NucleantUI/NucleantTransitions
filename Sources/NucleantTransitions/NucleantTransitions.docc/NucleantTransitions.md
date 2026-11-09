@@ -66,7 +66,8 @@ Every transition here has a navigation version with the same name and
 arguments, plus a `timing` (a smooth 0.6 s by default):
 `.iris(center: .topLeading, timing: .smooth(duration: 0.9))`. Each is a
 NucleantUI `ShaderNavigationTransition`, and you can make your own with
-`.navigationTransition(.shader(_:arguments:timing:))`.
+`.navigationTransition(.shader(_:arguments:timing:))`. Try them all in your
+browser: <doc:NaviTransitionGallery>.
 
 The fastest way to see them is the Transition Gallery, which runs in your
 browser: <doc:TransitionGallery>.
@@ -78,6 +79,7 @@ browser: <doc:TransitionGallery>.
 - <doc:UsingTheTransitions>
 - <doc:WritingAShaderTransition>
 - <doc:TransitionGallery>
+- <doc:NaviTransitionGallery>
 
 ### Reveals
 

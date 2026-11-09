@@ -69,7 +69,7 @@ cat > "$OUTPUT/index.html" <<EOF
 EOF
 touch "$OUTPUT/.nojekyll"
 
-# 3. The gallery, served at /$BASE_PATH/gallery/.
+# 3. The galleries, served at /$BASE_PATH/gallery/ and /$BASE_PATH/navi-gallery/.
 if [ "${SKIP_GALLERY:-0}" != "1" ]; then
     echo "Building the gallery for WebAssembly…"
     SWIFT="$HOME/Library/Developer/Toolchains/swift-${SWIFT_TOOLCHAIN:-6.3.3}-RELEASE.xctoolchain/usr/bin/swift"
@@ -87,6 +87,12 @@ if [ "${SKIP_GALLERY:-0}" != "1" ]; then
     gzip -9 -f "$OUTPUT/gallery/TransitionGallery.wasm"
     sed -i '' 's|\./TransitionGallery\.wasm|./TransitionGallery.wasm.gz|' "$OUTPUT/gallery/index.html"
     sed -i '' 's|<title>TransitionGallery</title>|<title>Transition Gallery</title>|' "$OUTPUT/gallery/index.html"
+    # The navigation gallery, served at /$BASE_PATH/navi-gallery/.
+    uv run --no-project python "$WASM_SCRATCH/checkouts/NucleantApplication/scripts/build_wasm_app.py" \
+        NaviTransitionGallery --package-path "$ROOT" --release --output "$OUTPUT/navi-gallery"
+    gzip -9 -f "$OUTPUT/navi-gallery/NaviTransitionGallery.wasm"
+    sed -i '' 's|\./NaviTransitionGallery\.wasm|./NaviTransitionGallery.wasm.gz|' "$OUTPUT/navi-gallery/index.html"
+    sed -i '' 's|<title>NaviTransitionGallery</title>|<title>Navigation Transitions</title>|' "$OUTPUT/navi-gallery/index.html"
 fi
 
 echo "Documentation site: $OUTPUT"
